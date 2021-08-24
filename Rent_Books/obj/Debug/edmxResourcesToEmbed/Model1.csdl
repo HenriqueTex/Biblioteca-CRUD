@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="UserSet" EntityType="Model1.User" />
+    <EntitySet Name="RentSet" EntityType="Model1.Rent" />
+    <EntitySet Name="BookSet" EntityType="Model1.Book" />
+    <AssociationSet Name="UserRent" Association="Model1.UserRent">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Rent" EntitySet="RentSet" />
+    </AssociationSet>
+    <AssociationSet Name="BookRent" Association="Model1.BookRent">
+      <End Role="Book" EntitySet="BookSet" />
+      <End Role="Rent" EntitySet="RentSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="User_id" />
+    </Key>
+    <Property Name="User_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Rent" Relationship="Model1.UserRent" FromRole="User" ToRole="Rent" />
+    <Property Name="Email" Type="String" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Rent">
+    <Key>
+      <PropertyRef Name="Rent_Id" />
+    </Key>
+    <Property Name="Rent_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateStart" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Model1.UserRent" FromRole="Rent" ToRole="User" />
+    <Property Name="User_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Book" Relationship="Model1.BookRent" FromRole="Rent" ToRole="Book" />
+    <Property Name="Book_Id" Type="Int32" Nullable="false" />
+    <Property Name="State" Type="Boolean" Nullable="false" />
+    <Property Name="DateEnd" Type="DateTime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="Book_Id" />
+    </Key>
+    <Property Name="Book_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="Author" Type="String" Nullable="false" />
+    <Property Name="Quantity" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Rent" Relationship="Model1.BookRent" FromRole="Book" ToRole="Rent" />
+  </EntityType>
+  <Association Name="UserRent">
+    <End Type="Model1.User" Role="User" Multiplicity="1" />
+    <End Type="Model1.Rent" Role="Rent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="User_id" />
+      </Principal>
+      <Dependent Role="Rent">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookRent">
+    <End Type="Model1.Book" Role="Book" Multiplicity="1" />
+    <End Type="Model1.Rent" Role="Rent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="Book_Id" />
+      </Principal>
+      <Dependent Role="Rent">
+        <PropertyRef Name="Book_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="UserSet" EntityType="Model1.Store.UserSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RentSet" EntityType="Model1.Store.RentSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BookSet" EntityType="Model1.Store.BookSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserRent" Association="Model1.Store.UserRent">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Rent" EntitySet="RentSet" />
+    </AssociationSet>
+    <AssociationSet Name="BookRent" Association="Model1.Store.BookRent">
+      <End Role="Book" EntitySet="BookSet" />
+      <End Role="Rent" EntitySet="RentSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UserSet">
+    <Key>
+      <PropertyRef Name="User_id" />
+    </Key>
+    <Property Name="User_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="RentSet">
+    <Key>
+      <PropertyRef Name="Rent_Id" />
+    </Key>
+    <Property Name="Rent_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateStart" Type="datetime" Nullable="false" />
+    <Property Name="User_id" Type="int" Nullable="false" />
+    <Property Name="Book_Id" Type="int" Nullable="false" />
+    <Property Name="State" Type="bit" Nullable="false" />
+    <Property Name="DateEnd" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="BookSet">
+    <Key>
+      <PropertyRef Name="Book_Id" />
+    </Key>
+    <Property Name="Book_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Quantity" Type="smallint" Nullable="false" />
+  </EntityType>
+  <Association Name="UserRent">
+    <End Role="User" Type="Model1.Store.UserSet" Multiplicity="1" />
+    <End Role="Rent" Type="Model1.Store.RentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="User_id" />
+      </Principal>
+      <Dependent Role="Rent">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookRent">
+    <End Role="Book" Type="Model1.Store.BookSet" Multiplicity="1" />
+    <End Role="Rent" Type="Model1.Store.RentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="Book_Id" />
+      </Principal>
+      <Dependent Role="Rent">
+        <PropertyRef Name="Book_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserSet" EntityType="Model1.User" />
+          <EntitySet Name="RentSet" EntityType="Model1.Rent" />
+          <EntitySet Name="BookSet" EntityType="Model1.Book" />
+          <AssociationSet Name="UserRent" Association="Model1.UserRent">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Rent" EntitySet="RentSet" />
+          </AssociationSet>
+          <AssociationSet Name="BookRent" Association="Model1.BookRent">
+            <End Role="Book" EntitySet="BookSet" />
+            <End Role="Rent" EntitySet="RentSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="User_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Rent" Relationship="Model1.UserRent" FromRole="User" ToRole="Rent" />
+          <Property Name="Email" Type="String" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Rent">
+          <Key>
+            <PropertyRef Name="Rent_Id" />
+          </Key>
+          <Property Name="Rent_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateStart" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Model1.UserRent" FromRole="Rent" ToRole="User" />
+          <Property Name="User_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Model1.BookRent" FromRole="Rent" ToRole="Book" />
+          <Property Name="Book_Id" Type="Int32" Nullable="false" />
+          <Property Name="State" Type="Boolean" Nullable="false" />
+          <Property Name="DateEnd" Type="DateTime" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Book_Id" />
+          </Key>
+          <Property Name="Book_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Author" Type="String" Nullable="false" />
+          <Property Name="Quantity" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Rent" Relationship="Model1.BookRent" FromRole="Book" ToRole="Rent" />
+        </EntityType>
+        <Association Name="UserRent">
+          <End Type="Model1.User" Role="User" Multiplicity="1" />
+          <End Type="Model1.Rent" Role="Rent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Rent">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookRent">
+          <End Type="Model1.Book" Role="Book" Multiplicity="1" />
+          <End Type="Model1.Rent" Role="Rent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Book_Id" />
+            </Principal>
+            <Dependent Role="Rent">
+              <PropertyRef Name="Book_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="UserSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.User)">
+        <MappingFragment StoreEntitySet="UserSet">
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RentSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Rent)">
+        <MappingFragment StoreEntitySet="RentSet">
+          <ScalarProperty Name="Rent_Id" ColumnName="Rent_Id" />
+          <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Book_Id" ColumnName="Book_Id" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Book)">
+        <MappingFragment StoreEntitySet="BookSet">
+          <ScalarProperty Name="Book_Id" ColumnName="Book_Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
