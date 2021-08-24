@@ -20,7 +20,7 @@ namespace Rent_Books
             this.Rent = new HashSet<Rent>();
         }
     
-        public int Book_Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Author { get; set; }
         public short Quantity { get; set; }

@@ -15,17 +15,17 @@
   </EntityContainer>
   <EntityType Name="UserSet">
     <Key>
-      <PropertyRef Name="User_id" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="User_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="RentSet">
     <Key>
-      <PropertyRef Name="Rent_Id" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Rent_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DateStart" Type="datetime" Nullable="false" />
     <Property Name="User_id" Type="int" Nullable="false" />
     <Property Name="Book_Id" Type="int" Nullable="false" />
@@ -34,9 +34,9 @@
   </EntityType>
   <EntityType Name="BookSet">
     <Key>
-      <PropertyRef Name="Book_Id" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Book_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Quantity" Type="smallint" Nullable="false" />
@@ -46,7 +46,7 @@
     <End Role="Rent" Type="Model1.Store.RentSet" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
-        <PropertyRef Name="User_id" />
+        <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Rent">
         <PropertyRef Name="User_id" />
@@ -58,7 +58,7 @@
     <End Role="Rent" Type="Model1.Store.RentSet" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Book">
-        <PropertyRef Name="Book_Id" />
+        <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Rent">
         <PropertyRef Name="Book_Id" />

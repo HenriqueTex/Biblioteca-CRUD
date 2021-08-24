@@ -42,7 +42,7 @@ namespace Rent_Books
             foreach (var item in list)
             {
                 var linha = new string[4];
-                linha[0] = item.Book_Id.ToString();
+                linha[0] = item.Id.ToString();
                 linha[1] = item.Name.ToString();
                 linha[2] = item.Author.ToString();
                 linha[3] = item.Quantity.ToString();
@@ -66,6 +66,13 @@ namespace Rent_Books
             searchUser.Show();
         }
 
+        private void registrosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var rentSearch = new RentsSearch();
+            rentSearch.Show();
+        }
+
+
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
             AllBooks();
@@ -82,7 +89,7 @@ namespace Rent_Books
                 var itmx = listBooks.SelectedItems[0].Text;
                 using (var db = new Model1Container())
                 {
-                    var query = db.BookSet.Where(s => s.Book_Id.ToString().ToLower() == itmx.ToString().ToLower()).FirstOrDefault();
+                    var query = db.BookSet.Where(s => s.Id.ToString().ToLower() == itmx.ToString().ToLower()).FirstOrDefault();
                     if (query != null)
                     {
                         db.BookSet.Remove(query);
@@ -135,7 +142,7 @@ namespace Rent_Books
                         {
                             case "Codigo":
                                 var queryCod = from item in db.BookSet
-                                               where item.Book_Id.ToString().ToLower() == textBusca.Text.ToLower()
+                                               where item.Id.ToString().ToLower() == textBusca.Text.ToLower()
                                                select item;
                                 LoadListBooks(queryCod);
                                 break;
@@ -170,7 +177,7 @@ namespace Rent_Books
                 using (var db = new Model1Container())
                 {
                     var bookId = Convert.ToInt32(listBooks.SelectedItems[0].Text);
-                    var query = db.BookSet.Where(s => s.Book_Id == bookId).FirstOrDefault();
+                    var query = db.BookSet.Where(s => s.Id == bookId).FirstOrDefault();
                     if (query.Quantity == 0)
                     {
                         MessageBox.Show("Livro Indisponivel para emprestimo");
@@ -188,12 +195,7 @@ namespace Rent_Books
             }
         }
 
-        private void registrosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var rentSearch = new RentsSearch();
-            rentSearch.Show();
-        }
-
+        
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             RegisterBook registerBook = new RegisterBook();

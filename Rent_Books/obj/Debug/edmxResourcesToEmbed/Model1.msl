@@ -4,7 +4,7 @@
     <EntitySetMapping Name="UserSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.User)">
         <MappingFragment StoreEntitySet="UserSet">
-          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Email" ColumnName="Email" />
         </MappingFragment>
@@ -13,7 +13,7 @@
     <EntitySetMapping Name="RentSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Rent)">
         <MappingFragment StoreEntitySet="RentSet">
-          <ScalarProperty Name="Rent_Id" ColumnName="Rent_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DateStart" ColumnName="DateStart" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
           <ScalarProperty Name="Book_Id" ColumnName="Book_Id" />
@@ -25,7 +25,7 @@
     <EntitySetMapping Name="BookSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Book)">
         <MappingFragment StoreEntitySet="BookSet">
-          <ScalarProperty Name="Book_Id" ColumnName="Book_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Author" ColumnName="Author" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />

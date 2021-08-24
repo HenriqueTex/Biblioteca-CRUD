@@ -38,7 +38,7 @@ namespace Rent_Books
         {
             using (var db = new Model1Container())
             {
-                var query = db.BookSet.Where(s => s.Book_Id == _id).FirstOrDefault();
+                var query = db.BookSet.Where(s => s.Id == _id).FirstOrDefault();
                 if (query != null)
                 {
                     textName.Text = query.Name;
@@ -69,7 +69,7 @@ namespace Rent_Books
                         }
                         else
                         {
-                            var query = db.BookSet.Where(s => s.Book_Id == _id).FirstOrDefault();
+                            var query = db.BookSet.Where(s => s.Id == _id).FirstOrDefault();
 
                             query.Name = textName.Text;
                             query.Author = textAuthor.Text;

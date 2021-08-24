@@ -43,7 +43,7 @@ namespace Rent_Books
             foreach (var item in list)
             {
                 var linha = new string[6];
-                linha[0] = item.Rent_Id.ToString();
+                linha[0] = item.Id.ToString();
                 linha[1] = item.User.Name.ToString();
                 linha[2] = item.Book.Name.ToString();
                 if (item.State == true) { linha[3] = "Ativo"; }
@@ -93,7 +93,7 @@ namespace Rent_Books
                                         break;
                                     case "Codigo emprestimo":
                                         var id = Convert.ToInt32(textSearch.Text);
-                                        query = db.RentSet.Where(s => s.State == true).Where(s => s.Rent_Id == id);
+                                        query = db.RentSet.Where(s => s.State == true).Where(s => s.Id == id);
                                         LoadListRents(query);
                                         break;
                                 }
@@ -120,7 +120,7 @@ namespace Rent_Books
                                         break;
                                     case "Codigo emprestimo":
                                         var id = Convert.ToInt32(textSearch.Text);
-                                        query = db.RentSet.Where(s => s.State == false).Where(s => s.Rent_Id == id);
+                                        query = db.RentSet.Where(s => s.State == false).Where(s => s.Id == id);
                                         LoadListRents(query);
                                         break;
                                 }
@@ -147,7 +147,7 @@ namespace Rent_Books
                                         break;
                                     case "Codigo emprestimo":
                                         var id = Convert.ToInt32(textSearch.Text);
-                                        query = db.RentSet.Where(s => s.Rent_Id == id);
+                                        query = db.RentSet.Where(s => s.Id == id);
                                         LoadListRents(query);
                                         break;
                                 }
@@ -177,11 +177,11 @@ namespace Rent_Books
                 using (var db = new Model1Container())
                 {
                     var id = Convert.ToInt32(listRents.SelectedItems[0].Text);
-                    var query = db.RentSet.Where(s => s.Rent_Id == id).FirstOrDefault();
+                    var query = db.RentSet.Where(s => s.Id == id).FirstOrDefault();
                     query.State = false;
                     query.DateEnd = DateTime.Now;
 
-                    var book = db.BookSet.Where(s => s.Book_Id == query.Book.Book_Id).FirstOrDefault();
+                    var book = db.BookSet.Where(s => s.Id == query.Book.Id).FirstOrDefault();
                     book.Quantity += 1;
                     db.SaveChanges();
 

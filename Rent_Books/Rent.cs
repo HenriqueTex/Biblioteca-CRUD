@@ -14,7 +14,7 @@ namespace Rent_Books
     
     public partial class Rent
     {
-        public int Rent_Id { get; set; }
+        public int Id { get; set; }
         public System.DateTime DateStart { get; set; }
         public int User_id { get; set; }
         public int Book_Id { get; set; }

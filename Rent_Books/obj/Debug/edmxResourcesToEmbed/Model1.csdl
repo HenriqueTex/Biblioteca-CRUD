@@ -15,18 +15,18 @@
   </EntityContainer>
   <EntityType Name="User">
     <Key>
-      <PropertyRef Name="User_id" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="User_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" Nullable="false" />
     <NavigationProperty Name="Rent" Relationship="Model1.UserRent" FromRole="User" ToRole="Rent" />
     <Property Name="Email" Type="String" Nullable="true" />
   </EntityType>
   <EntityType Name="Rent">
     <Key>
-      <PropertyRef Name="Rent_Id" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Rent_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DateStart" Type="DateTime" Nullable="false" />
     <NavigationProperty Name="User" Relationship="Model1.UserRent" FromRole="Rent" ToRole="User" />
     <Property Name="User_id" Type="Int32" Nullable="false" />
@@ -37,9 +37,9 @@
   </EntityType>
   <EntityType Name="Book">
     <Key>
-      <PropertyRef Name="Book_Id" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Book_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" Nullable="false" />
     <Property Name="Author" Type="String" Nullable="false" />
     <Property Name="Quantity" Type="Int16" Nullable="false" />
@@ -50,7 +50,7 @@
     <End Type="Model1.Rent" Role="Rent" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
-        <PropertyRef Name="User_id" />
+        <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Rent">
         <PropertyRef Name="User_id" />
@@ -62,7 +62,7 @@
     <End Type="Model1.Rent" Role="Rent" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Book">
-        <PropertyRef Name="Book_Id" />
+        <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Rent">
         <PropertyRef Name="Book_Id" />

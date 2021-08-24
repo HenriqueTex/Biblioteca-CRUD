@@ -151,7 +151,7 @@
             this.buttonRent.Name = "buttonRent";
             this.buttonRent.Size = new System.Drawing.Size(111, 23);
             this.buttonRent.TabIndex = 6;
-            this.buttonRent.Text = "Fazer emprestimo";
+            this.buttonRent.Text = "Realizar emprestimo";
             this.buttonRent.UseVisualStyleBackColor = true;
             this.buttonRent.Click += new System.EventHandler(this.buttonRent_Click);
             // 

@@ -62,7 +62,7 @@ namespace Rent_Books
             foreach (var item in list)
             {
                 var linha = new string[3];
-                linha[0] = item.User_id.ToString();
+                linha[0] = item.Id.ToString();
                 linha[1] = item.Name.ToString();
                 linha[2] = item.Email.ToString();
                 var itmx = new ListViewItem(linha);
@@ -84,8 +84,7 @@ namespace Rent_Books
                 var itmx = listUsers.SelectedItems[0].Text;
                 using (var db = new Model1Container())
                 {
-                    var query = db.UserSet.Where(s => s.User_id.ToString().ToLower() == itmx.ToString().ToLower()).FirstOrDefault();
-
+                    var query = db.UserSet.Where(s => s.Id.ToString().ToLower() == itmx.ToString().ToLower()).FirstOrDefault();
                     db.UserSet.Remove(query);
                     db.SaveChanges();
                     MessageBox.Show("Usuario Excluido");

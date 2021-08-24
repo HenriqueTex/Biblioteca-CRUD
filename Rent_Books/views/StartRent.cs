@@ -41,7 +41,7 @@ namespace Rent_Books
             foreach (var item in list)
             {
                 var linha = new string[3];
-                linha[0] = item.User_id.ToString();
+                linha[0] = item.Id.ToString();
                 linha[1] = item.Name.ToString();
                 linha[2] = item.Email.ToString();
                 var itmx = new ListViewItem(linha);
@@ -53,8 +53,8 @@ namespace Rent_Books
         {
             using (var db = new Model1Container())
             {
-                var user = db.UserSet.Where(s => s.User_id == idUser).FirstOrDefault();
-                var book = db.BookSet.Where(s => s.Book_Id == idBook).FirstOrDefault();
+                var user = db.UserSet.Where(s => s.Id == idUser).FirstOrDefault();
+                var book = db.BookSet.Where(s => s.Id == idBook).FirstOrDefault();
                 book.Quantity -= 1;
                 var rent = new Rent { DateStart = DateTime.Now, User_id = idUser, Book_Id = idBook, State = true, User = user, Book = book,DateEnd=null };
                 db.RentSet.Add(rent);
@@ -93,7 +93,7 @@ namespace Rent_Books
                         {
                             case "Codigo":
                                 var queryCod = from item in db.UserSet
-                                               where item.User_id.ToString().ToLower() == textUser.Text.ToLower()
+                                               where item.Id.ToString().ToLower() == textUser.Text.ToLower()
                                                select item;
                                 Load_List(queryCod);
                                 break;

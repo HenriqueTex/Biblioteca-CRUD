@@ -20,17 +20,17 @@
   </EntityContainer>
   <EntityType Name="UserSet">
     <Key>
-      <PropertyRef Name="User_id" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="User_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="RentSet">
     <Key>
-      <PropertyRef Name="Rent_Id" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Rent_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DateStart" Type="datetime" Nullable="false" />
     <Property Name="User_id" Type="int" Nullable="false" />
     <Property Name="Book_Id" Type="int" Nullable="false" />
@@ -39,9 +39,9 @@
   </EntityType>
   <EntityType Name="BookSet">
     <Key>
-      <PropertyRef Name="Book_Id" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Book_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Quantity" Type="smallint" Nullable="false" />
@@ -51,7 +51,7 @@
     <End Role="Rent" Type="Model1.Store.RentSet" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
-        <PropertyRef Name="User_id" />
+        <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Rent">
         <PropertyRef Name="User_id" />
@@ -63,7 +63,7 @@
     <End Role="Rent" Type="Model1.Store.RentSet" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Book">
-        <PropertyRef Name="Book_Id" />
+        <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Rent">
         <PropertyRef Name="Book_Id" />
@@ -89,18 +89,18 @@
         </EntityContainer>
         <EntityType Name="User">
           <Key>
-            <PropertyRef Name="User_id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="User_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
           <NavigationProperty Name="Rent" Relationship="Model1.UserRent" FromRole="User" ToRole="Rent" />
           <Property Name="Email" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="Rent">
           <Key>
-            <PropertyRef Name="Rent_Id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Rent_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DateStart" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Model1.UserRent" FromRole="Rent" ToRole="User" />
           <Property Name="User_id" Type="Int32" Nullable="false" />
@@ -111,9 +111,9 @@
         </EntityType>
         <EntityType Name="Book">
           <Key>
-            <PropertyRef Name="Book_Id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Book_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="Author" Type="String" Nullable="false" />
           <Property Name="Quantity" Type="Int16" Nullable="false" />
@@ -124,7 +124,7 @@
           <End Type="Model1.Rent" Role="Rent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="User_id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Rent">
               <PropertyRef Name="User_id" />
@@ -136,7 +136,7 @@
           <End Type="Model1.Rent" Role="Rent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Book">
-              <PropertyRef Name="Book_Id" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Rent">
               <PropertyRef Name="Book_Id" />
@@ -152,7 +152,7 @@
     <EntitySetMapping Name="UserSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.User)">
         <MappingFragment StoreEntitySet="UserSet">
-          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Email" ColumnName="Email" />
         </MappingFragment>
@@ -161,7 +161,7 @@
     <EntitySetMapping Name="RentSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Rent)">
         <MappingFragment StoreEntitySet="RentSet">
-          <ScalarProperty Name="Rent_Id" ColumnName="Rent_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DateStart" ColumnName="DateStart" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
           <ScalarProperty Name="Book_Id" ColumnName="Book_Id" />
@@ -173,7 +173,7 @@
     <EntitySetMapping Name="BookSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Book)">
         <MappingFragment StoreEntitySet="BookSet">
-          <ScalarProperty Name="Book_Id" ColumnName="Book_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Author" ColumnName="Author" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
