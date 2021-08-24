@@ -16,6 +16,7 @@ namespace Rent_Books
         public StartRent(int _id)
         {
             InitializeComponent();
+            boxType.SelectedIndex = 1;
             idBook = _id;
             All_Users();
         }

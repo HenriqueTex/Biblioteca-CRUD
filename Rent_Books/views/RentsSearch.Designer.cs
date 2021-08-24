@@ -144,6 +144,7 @@
             this.Controls.Add(this.textSearch);
             this.Controls.Add(this.label1);
             this.Name = "RentsSearch";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RentsSearch";
             this.ResumeLayout(false);
             this.PerformLayout();

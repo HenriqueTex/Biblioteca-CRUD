@@ -52,34 +52,39 @@ namespace Rent_Books
         {
             try
             {
-                using (var db = new Model1Container())
+                if (textName.TextLength < 1 | textAuthor.TextLength < 1)
                 {
-                    if (update == false)
+                    MessageBox.Show("Todos os campos devem ser preenchidos");
+                }
+                else
+                {
+
+
+                    using (var db = new Model1Container())
                     {
-                        var book = new Book { Name = textName.Text, Author = textAuthor.Text, Quantity = Convert.ToInt16(textQuantity.Text) };
-                        db.BookSet.Add(book);
-                    }
-                    else
-                    {
-                        var query = db.BookSet.Where(s => s.Book_Id == _id).FirstOrDefault();
-                        if (query != null)
+                        if (update == false)
                         {
-                            query.Name = textName.Text;
-                            query.Author = textAuthor.Text;
-                            query.Quantity = Convert.ToInt16(textQuantity.Text);
+                            var book = new Book { Name = textName.Text, Author = textAuthor.Text, Quantity = Convert.ToInt16(textQuantity.Text) };
+                            db.BookSet.Add(book);
                         }
                         else
                         {
-                            MessageBox.Show("Error");
+                            var query = db.BookSet.Where(s => s.Book_Id == _id).FirstOrDefault();
+
+                            query.Name = textName.Text;
+                            query.Author = textAuthor.Text;
+                            query.Quantity = Convert.ToInt16(textQuantity.Text);
+
+
                         }
+
+                        db.SaveChanges();
+
+                        Close();
                     }
-
-                    db.SaveChanges();
-
-                    Close();
                 }
             }
-            catch (System.FormatException )
+            catch (System.FormatException)
             {
                 MessageBox.Show("Erro: Quantidade deve ser um valor inteiro ");
             }

@@ -16,7 +16,7 @@ namespace Rent_Books
         private int _id;
         private Boolean update;
 
-        //construtor padrao para cadastro
+        
         public UsuarioCadastro()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace Rent_Books
             
 
         }
-        //construtor para atualização de usuario
+        
         public UsuarioCadastro(int id)
         {
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace Rent_Books
             update = true;
             CarregarDados();
         }
-        //Funcao pré-carrega dados do usuario que sera editado nos campos de entrada
+        
         public void CarregarDados()
         {
             using (var db = new Model1Container())
@@ -52,34 +52,41 @@ namespace Rent_Books
 
         private void Salvar_Click(object sender, EventArgs e)
         {
-            using (var db = new Model1Container())
+            if (txtNewEmail.TextLength < 1 | txtNewName.TextLength <1 )
             {
-                //verifica se é Update ou Create de User
-                if (update == false)
+                MessageBox.Show("Todos os campos devem ser preenchidos");
+            }
+            else
+            {
+                using (var db = new Model1Container())
                 {
-                    var user = new User { Name = txtNewName.Text, Email = txtNewEmail.Text };
-                    db.UserSet.Add(user);
-                }
 
-                else
-                {
-                    var query = db.UserSet.Where(s => s.User_id == _id).FirstOrDefault();
-                    if (query != null)
+                    if (update == false)
                     {
-                        query.Name = txtNewName.Text;
-                        query.Email = txtNewEmail.Text;
+                        var user = new User { Name = txtNewName.Text, Email = txtNewEmail.Text };
+                        db.UserSet.Add(user);
                     }
+
                     else
                     {
-                        MessageBox.Show("Error");
+                        var query = db.UserSet.Where(s => s.User_id == _id).FirstOrDefault();
+                        if (query != null)
+                        {
+                            query.Name = txtNewName.Text;
+                            query.Email = txtNewEmail.Text;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error");
+                        }
                     }
+
+
+                    db.SaveChanges();
+                    MessageBox.Show("Usuario " + txtNewName.Text + " Salvo");
+                    Close();
+
                 }
-
-
-                db.SaveChanges();
-                MessageBox.Show("Usuario " + txtNewName.Text + " Salvo");
-                Close();
-
             }
         }
 

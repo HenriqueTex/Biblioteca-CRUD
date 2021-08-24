@@ -15,6 +15,8 @@ namespace Rent_Books
         public RentsSearch()
         {
             InitializeComponent();
+            boxState.SelectedIndex=2;
+            boxAtributte.SelectedIndex = 1;
             AllRents();
         }
         public void AllRents()
@@ -128,7 +130,7 @@ namespace Rent_Books
                         case "Todos":
                             if (textSearch.TextLength < 1)
                             {
-                                query = db.RentSet.Where(s => s.State == false);
+                                query = db.RentSet;
                                 LoadListRents(query);
                             }
                             else
@@ -162,6 +164,10 @@ namespace Rent_Books
             {
                 MessageBox.Show("Campos de pesquisa obrigatorios");
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("Um valor interio é necessario para pesquisa por codigo de emprestimo");
+            }
         }
 
         private void buttonReturn_Click(object sender, EventArgs e)
@@ -193,6 +199,8 @@ namespace Rent_Books
         {
             AllRents();
         }
+
+        
     }
 }
 

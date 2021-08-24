@@ -15,6 +15,7 @@ namespace Rent_Books
         public Form1()
         {
             InitializeComponent();
+            boxType.SelectedIndex = 0;
             AllBooks();
         }
 
