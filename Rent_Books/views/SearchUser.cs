@@ -52,15 +52,22 @@ namespace Rent_Books
 
         private void DeletUser(int id)
         {
-            using (var db = new Model1Container())
+            try
             {
-                var query = db.UserSet.Where(s => s.Id.ToString().ToLower() == id.ToString().ToLower()).FirstOrDefault();
-                db.UserSet.Remove(query);
-                db.SaveChanges();
-                MessageBox.Show("Usuario Excluido");
-                All_Users();
+                using (var db = new Model1Container())
+                {
+                    var query = db.UserSet.Where(s => s.Id.ToString().ToLower() == id.ToString().ToLower()).FirstOrDefault();
+                    db.UserSet.Remove(query);
+                    db.SaveChanges();
+                    MessageBox.Show("Usuario Excluido");
+                    All_Users();
+                }
             }
-        }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            {
+                MessageBox.Show("Usuario não pode ser excluido pois tem relação com emprestimos");
+            }
+          }
 
         private void UserSearch()
         {

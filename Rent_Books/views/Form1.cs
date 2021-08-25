@@ -52,22 +52,29 @@ namespace Rent_Books
 
         private void deleteBook(string itmx)
         {
-            using (var db = new Model1Container())
+            try
             {
-                var query = db.BookSet.Where(s => s.Id.ToString().ToLower() == itmx.ToString().ToLower()).FirstOrDefault();
-                if (query != null)
+                using (var db = new Model1Container())
                 {
-                    db.BookSet.Remove(query);
-                    db.SaveChanges();
-                    MessageBox.Show("Excluido");
-                    AllBooks();
-                }
-                else
-                {
-                    MessageBox.Show("Error");
+                    var query = db.BookSet.Where(s => s.Id.ToString().ToLower() == itmx.ToString().ToLower()).FirstOrDefault();
+                    if (query != null)
+                    {
+                        db.BookSet.Remove(query);
+                        db.SaveChanges();
+                        MessageBox.Show("Excluido");
+                        AllBooks();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error");
+                    }
                 }
             }
-        }
+            catch(System.Data.Entity.Infrastructure.DbUpdateException){
+                MessageBox.Show("Livro não pode ser excluido pois tem relações de emprestimo");
+
+            }
+            }
 
         private void BookAtributeSearch(string atribute)
         {
@@ -111,10 +118,17 @@ namespace Rent_Books
             rentSearch.Show();
         }
 
-
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            AllBooks();
+            var atribute = boxType.SelectedItem.ToString();
+            if (textBusca.TextLength < 1)
+            {
+                AllBooks();
+            }
+            else
+            {
+                BookAtributeSearch(atribute);
+            }
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -127,6 +141,7 @@ namespace Rent_Books
             {
                 var itmx = listBooks.SelectedItems[0].Text;
                 deleteBook(itmx);
+                
             }
             catch (ArgumentOutOfRangeException)
             {

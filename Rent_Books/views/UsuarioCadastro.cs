@@ -52,7 +52,6 @@ namespace Rent_Books
                 MessageBox.Show("Usuario " + txtNewName.Text + " Salvo");
                 Close();
             }
-
         }
 
         private void UpdateUser()
@@ -66,8 +65,8 @@ namespace Rent_Books
                 MessageBox.Show("Usuario " + txtNewName.Text + " Salvo");
                 Close();
             }
-
         }
+
         private void Salvar_Click(object sender, EventArgs e)
         {
             if (txtNewEmail.TextLength < 1 | txtNewName.TextLength < 1)
@@ -80,7 +79,6 @@ namespace Rent_Books
                 {
                     AddUser();
                 }
-
                 else
                 {
                     UpdateUser();

@@ -65,11 +65,9 @@ namespace Rent_Books
 
                 query.State = false;
                 query.DateEnd = DateTime.Now;
-
                 var book = db.BookSet.Where(s => s.Id == query.Book.Id).FirstOrDefault();
                 book.Quantity += 1;
                 db.SaveChanges();
-
                 MessageBox.Show("livro " + book.Name + " devolvido");
                 AllRents();
             }
@@ -87,99 +85,129 @@ namespace Rent_Books
             }
         }
 
+        private void SearchAtiveRents(string atribute)
+        {
+            using (var db = new Model1Container())
+            {
+                IQueryable<Rent> query;
+                switch (atribute)
+                {
+
+                    case "Usuario":
+                        query = db.RentSet.Where(s => s.State == true).Where(s => s.User.Name == textSearch.Text);
+                        LoadListRents(query);
+                        break;
+                    case "Livro":
+                        query = db.RentSet.Where(s => s.State == true).Where(s => s.Book.Name == textSearch.Text);
+                        LoadListRents(query);
+                        break;
+                    case "Codigo emprestimo":
+                        var id = Convert.ToInt32(textSearch.Text);
+                        query = db.RentSet.Where(s => s.State == true).Where(s => s.Id == id);
+                        LoadListRents(query);
+                        break;
+                }
+            }
+        }
+
+        private void SearchFinishedRents(string atribute)
+        {
+            using (var db = new Model1Container())
+            {
+                IQueryable<Rent> query;
+                switch (atribute)
+                {
+                    case "Usuario":
+                        query = db.RentSet.Where(s => s.State == false).Where(s => s.User.Name == textSearch.Text);
+                        LoadListRents(query);
+                        break;
+                    case "Livro":
+                        query = db.RentSet.Where(s => s.State == false).Where(s => s.Book.Name == textSearch.Text);
+                        LoadListRents(query);
+                        break;
+                    case "Codigo emprestimo":
+                        var id = Convert.ToInt32(textSearch.Text);
+                        query = db.RentSet.Where(s => s.State == false).Where(s => s.Id == id);
+                        LoadListRents(query);
+                        break;
+                }
+            }
+        }
+        private void SearchAtiveOrFinishedRents(string atribute)
+        {
+            using (var db = new Model1Container())
+            {
+                IQueryable<Rent> query;
+                switch (atribute)
+                {
+                    case "Usuario":
+                        query = db.RentSet.Where(s => s.User.Name == textSearch.Text);
+                        LoadListRents(query);
+                        break;
+                    case "Livro":
+                        query = db.RentSet.Where(s => s.Book.Name == textSearch.Text);
+                        LoadListRents(query);
+                        break;
+                    case "Codigo emprestimo":
+                        var id = Convert.ToInt32(textSearch.Text);
+                        query = db.RentSet.Where(s => s.Id == id);
+                        LoadListRents(query);
+                        break;
+                }
+            }
+        }
+        private void SearchStateRents(string state, string atribute)
+        {
+            using (var db = new Model1Container())
+            {
+                IQueryable<Rent> query;
+                switch (state)
+                {
+                    case "Ativos":
+                        if (textSearch.TextLength < 1)
+                        {
+                            query = db.RentSet.Where(s => s.State == true);
+                            LoadListRents(query);
+                        }
+                        else
+                        {
+                            SearchAtiveRents(atribute);
+                        }
+                        break;
+
+                    case "Finalizados":
+                        if (textSearch.TextLength < 1)
+                        {
+                            query = db.RentSet.Where(s => s.State == false);
+                            LoadListRents(query);
+                        }
+                        else
+                        {
+                            SearchFinishedRents(atribute);
+                        }
+                        break;
+
+                    case "Todos":
+                        if (textSearch.TextLength < 1)
+                        {
+                            query = db.RentSet;
+                            LoadListRents(query);
+                        }
+                        else
+                        {
+                            SearchAtiveOrFinishedRents(atribute);
+                        }
+                        break;
+                }
+            }
+        }
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             try
             {
-                using (var db = new Model1Container())
-                {
-                    var state = boxState.SelectedItem.ToString();
-                    var atribute = boxAtributte.SelectedItem.ToString();
-                    IQueryable<Rent> query;
-                    switch (state)
-                    {
-                        case "Ativos":
-                            if (textSearch.TextLength < 1)
-                            {
-                                query = db.RentSet.Where(s => s.State == true);
-                                LoadListRents(query);
-                            }
-                            else
-                            {
-                                switch (atribute)
-                                {
-                                    case "Usuario":
-                                        query = db.RentSet.Where(s => s.State == true).Where(s => s.User.Name == textSearch.Text);
-                                        LoadListRents(query);
-                                        break;
-                                    case "Livro":
-                                        query = db.RentSet.Where(s => s.State == true).Where(s => s.Book.Name == textSearch.Text);
-                                        LoadListRents(query);
-                                        break;
-                                    case "Codigo emprestimo":
-                                        var id = Convert.ToInt32(textSearch.Text);
-                                        query = db.RentSet.Where(s => s.State == true).Where(s => s.Id == id);
-                                        LoadListRents(query);
-                                        break;
-                                }
-                            }
-                            break;
-
-                        case "Finalizados":
-                            if (textSearch.TextLength < 1)
-                            {
-                                query = db.RentSet.Where(s => s.State == false);
-                                LoadListRents(query);
-                            }
-                            else
-                            {
-                                switch (atribute)
-                                {
-                                    case "Usuario":
-                                        query = db.RentSet.Where(s => s.State == false).Where(s => s.User.Name == textSearch.Text);
-                                        LoadListRents(query);
-                                        break;
-                                    case "Livro":
-                                        query = db.RentSet.Where(s => s.State == false).Where(s => s.Book.Name == textSearch.Text);
-                                        LoadListRents(query);
-                                        break;
-                                    case "Codigo emprestimo":
-                                        var id = Convert.ToInt32(textSearch.Text);
-                                        query = db.RentSet.Where(s => s.State == false).Where(s => s.Id == id);
-                                        LoadListRents(query);
-                                        break;
-                                }
-                            }
-                            break;
-
-                        case "Todos":
-                            if (textSearch.TextLength < 1)
-                            {
-                                query = db.RentSet;
-                                LoadListRents(query);
-                            }
-                            else
-                            {
-                                switch (atribute)
-                                {
-                                    case "Usuario":
-                                        query = db.RentSet.Where(s => s.User.Name == textSearch.Text);
-                                        LoadListRents(query);
-                                        break;
-                                    case "Livro":
-                                        query = db.RentSet.Where(s => s.Book.Name == textSearch.Text);
-                                        LoadListRents(query);
-                                        break;
-                                    case "Codigo emprestimo":
-                                        var id = Convert.ToInt32(textSearch.Text);
-                                        query = db.RentSet.Where(s => s.Id == id);
-                                        LoadListRents(query);
-                                        break;
-                                }
-                            }
-                            break;
-                    }
-                }
+                var state = boxState.SelectedItem.ToString();
+                var atribute = boxAtributte.SelectedItem.ToString();
+                SearchStateRents(state, atribute);
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -194,7 +222,7 @@ namespace Rent_Books
                 MessageBox.Show("Um valor interio é necessario para pesquisa por codigo de emprestimo");
             }
         }
-       
+
         private void buttonReturn_Click(object sender, EventArgs e)
         {
             try
@@ -219,8 +247,6 @@ namespace Rent_Books
         {
             AllRents();
         }
-
-
     }
 }
 
