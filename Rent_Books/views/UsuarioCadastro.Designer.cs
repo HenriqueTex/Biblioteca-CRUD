@@ -59,7 +59,6 @@
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Email:";
-            
             // 
             // txtNewEmail
             // 
@@ -89,6 +88,7 @@
             this.Controls.Add(this.txtNewName);
             this.Controls.Add(this.Nome);
             this.Name = "UsuarioCadastro";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UsuarioCadastro";
             this.ResumeLayout(false);
             this.PerformLayout();

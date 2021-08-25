@@ -177,9 +177,9 @@
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(187, 276);
+            this.buttonDelete.Location = new System.Drawing.Point(175, 277);
             this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.Size = new System.Drawing.Size(64, 23);
             this.buttonDelete.TabIndex = 9;
             this.buttonDelete.Text = "Deletar";
             this.buttonDelete.UseVisualStyleBackColor = true;
@@ -213,7 +213,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

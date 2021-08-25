@@ -21,26 +21,6 @@ namespace Rent_Books
 
         }
 
-
-        private void Search_Click(object sender, EventArgs e)
-        {
-            using (var db = new Model1Container())
-            {
-                if (txtUserSearch.TextLength < 1)
-                {
-                    All_Users();
-                }
-                else
-                {
-                    var query = from item in db.UserSet
-                                where item.Name.ToLower() == txtUserSearch.Text.ToLower()
-                                select item;
-                    Load_List(query);
-                }
-
-            }
-        }
-
         public void All_Users()
         {
             using (var db = new Model1Container())
@@ -66,10 +46,42 @@ namespace Rent_Books
                 linha[1] = item.Name.ToString();
                 linha[2] = item.Email.ToString();
                 var itmx = new ListViewItem(linha);
-
-
-
                 listUsers.Items.Add(itmx);
+            }
+        }
+
+        private void DeletUser(int id)
+        {
+            using (var db = new Model1Container())
+            {
+                var query = db.UserSet.Where(s => s.Id.ToString().ToLower() == id.ToString().ToLower()).FirstOrDefault();
+                db.UserSet.Remove(query);
+                db.SaveChanges();
+                MessageBox.Show("Usuario Excluido");
+                All_Users();
+            }
+        }
+
+        private void UserSearch()
+        {
+            using (var db = new Model1Container())
+            {
+                var query = from item in db.UserSet
+                            where item.Name.ToLower() == txtUserSearch.Text.ToLower()
+                            select item;
+                Load_List(query);
+            }
+        }
+
+        private void Search_Click(object sender, EventArgs e)
+        {
+            if (txtUserSearch.TextLength < 1)
+            {
+                All_Users();
+            }
+            else
+            {
+                UserSearch();
             }
         }
 
@@ -81,17 +93,8 @@ namespace Rent_Books
                 {
                     return;
                 }
-                var itmx = listUsers.SelectedItems[0].Text;
-                using (var db = new Model1Container())
-                {
-                    var query = db.UserSet.Where(s => s.Id.ToString().ToLower() == itmx.ToString().ToLower()).FirstOrDefault();
-                    db.UserSet.Remove(query);
-                    db.SaveChanges();
-                    MessageBox.Show("Usuario Excluido");
-                    All_Users();
-
-
-                }
+                var id = Convert.ToInt32(listUsers.SelectedItems[0].Text);
+                DeletUser(id);
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -112,7 +115,5 @@ namespace Rent_Books
                 MessageBox.Show("Necessario selecionar o usuario a ser editado");
             }
         }
-
-
     }
 }

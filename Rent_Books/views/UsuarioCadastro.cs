@@ -12,31 +12,23 @@ namespace Rent_Books
 {
     public partial class UsuarioCadastro : Form
     {
-
         private int _id;
         private Boolean update;
 
-        
         public UsuarioCadastro()
         {
             InitializeComponent();
-            txtNewEmail.Enabled = true;
-            txtNewName.Enabled = true;
             update = false;
-            
-
         }
-        
+
         public UsuarioCadastro(int id)
         {
             InitializeComponent();
-            txtNewEmail.Enabled = true;
-            txtNewName.Enabled = true;
             _id = id;
             update = true;
             CarregarDados();
         }
-        
+
         public void CarregarDados()
         {
             using (var db = new Model1Container())
@@ -50,48 +42,51 @@ namespace Rent_Books
             }
         }
 
+        private void AddUser()
+        {
+            using (var db = new Model1Container())
+            {
+                var user = new User { Name = txtNewName.Text, Email = txtNewEmail.Text };
+                db.UserSet.Add(user);
+                db.SaveChanges();
+                MessageBox.Show("Usuario " + txtNewName.Text + " Salvo");
+                Close();
+            }
+
+        }
+
+        private void UpdateUser()
+        {
+            using (var db = new Model1Container())
+            {
+                var query = db.UserSet.Where(s => s.Id == _id).FirstOrDefault();
+                query.Name = txtNewName.Text;
+                query.Email = txtNewEmail.Text;
+                db.SaveChanges();
+                MessageBox.Show("Usuario " + txtNewName.Text + " Salvo");
+                Close();
+            }
+
+        }
         private void Salvar_Click(object sender, EventArgs e)
         {
-            if (txtNewEmail.TextLength < 1 | txtNewName.TextLength <1 )
+            if (txtNewEmail.TextLength < 1 | txtNewName.TextLength < 1)
             {
                 MessageBox.Show("Todos os campos devem ser preenchidos");
             }
             else
             {
-                using (var db = new Model1Container())
+                if (update == false)
                 {
+                    AddUser();
+                }
 
-                    if (update == false)
-                    {
-                        var user = new User { Name = txtNewName.Text, Email = txtNewEmail.Text };
-                        db.UserSet.Add(user);
-                    }
-
-                    else
-                    {
-                        var query = db.UserSet.Where(s => s.Id == _id).FirstOrDefault();
-                        if (query != null)
-                        {
-                            query.Name = txtNewName.Text;
-                            query.Email = txtNewEmail.Text;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Error");
-                        }
-                    }
-
-
-                    db.SaveChanges();
-                    MessageBox.Show("Usuario " + txtNewName.Text + " Salvo");
-                    Close();
-
+                else
+                {
+                    UpdateUser();
                 }
             }
         }
-
-
-
     }
 }
 

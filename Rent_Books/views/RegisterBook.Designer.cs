@@ -108,6 +108,7 @@
             this.Controls.Add(this.author);
             this.Controls.Add(this.name);
             this.Name = "RegisterBook";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RegisterBook";
             this.ResumeLayout(false);
             this.PerformLayout();

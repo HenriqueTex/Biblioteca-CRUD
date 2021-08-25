@@ -27,7 +27,6 @@ namespace Rent_Books
                             select item;
                 LoadListBooks(query);
             };
-
         }
 
         public void LoadListBooks(IQueryable<Book> list)
@@ -47,10 +46,50 @@ namespace Rent_Books
                 linha[2] = item.Author.ToString();
                 linha[3] = item.Quantity.ToString();
                 var itmx = new ListViewItem(linha);
-
-
-
                 listBooks.Items.Add(itmx);
+            }
+        }
+
+        private void deleteBook(string itmx)
+        {
+            using (var db = new Model1Container())
+            {
+                var query = db.BookSet.Where(s => s.Id.ToString().ToLower() == itmx.ToString().ToLower()).FirstOrDefault();
+                if (query != null)
+                {
+                    db.BookSet.Remove(query);
+                    db.SaveChanges();
+                    MessageBox.Show("Excluido");
+                    AllBooks();
+                }
+                else
+                {
+                    MessageBox.Show("Error");
+                }
+            }
+        }
+
+        private void BookAtributeSearch(string atribute)
+        {
+            using (var db = new Model1Container())
+            {
+                switch (atribute)
+                {
+                    case "Codigo":
+                        var queryCod = from item in db.BookSet where item.Id.ToString().ToLower() == textBusca.Text.ToLower() select item;
+                        LoadListBooks(queryCod);
+                        break;
+
+                    case "Nome":
+                        var queryName = from item in db.BookSet where item.Name.ToString().ToLower() == textBusca.Text.ToLower() select item;
+                        LoadListBooks(queryName);
+                        break;
+
+                    case "Autor":
+                        var queryAuthor = from item in db.BookSet where item.Author.ToString().ToLower() == textBusca.Text.ToLower() select item;
+                        LoadListBooks(queryAuthor);
+                        break;
+                }
             }
         }
 
@@ -80,28 +119,14 @@ namespace Rent_Books
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Confirma a operação?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+            {
+                return;
+            }
             try
             {
-                if (MessageBox.Show("Confirma a operação?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                {
-                    return;
-                }
                 var itmx = listBooks.SelectedItems[0].Text;
-                using (var db = new Model1Container())
-                {
-                    var query = db.BookSet.Where(s => s.Id.ToString().ToLower() == itmx.ToString().ToLower()).FirstOrDefault();
-                    if (query != null)
-                    {
-                        db.BookSet.Remove(query);
-                        db.SaveChanges();
-                        MessageBox.Show("Excluido");
-                        AllBooks();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Error");
-                    }
-                }
+                deleteBook(itmx);
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -129,44 +154,19 @@ namespace Rent_Books
         {
             try
             {
-                using (var db = new Model1Container())
+                var atribute = boxType.SelectedItem.ToString();
+                if (textBusca.TextLength < 1)
                 {
-                    var atribute = boxType.SelectedItem.ToString();
-                    if (textBusca.TextLength < 1)
-                    {
-                        AllBooks();
-                    }
-                    else
-                    {
-                        switch (atribute)
-                        {
-                            case "Codigo":
-                                var queryCod = from item in db.BookSet
-                                               where item.Id.ToString().ToLower() == textBusca.Text.ToLower()
-                                               select item;
-                                LoadListBooks(queryCod);
-                                break;
-
-                            case "Nome":
-                                var queryName = from item in db.BookSet
-                                                where item.Name.ToString().ToLower() == textBusca.Text.ToLower()
-                                                select item;
-                                LoadListBooks(queryName);
-                                break;
-
-                            case "Autor":
-                                var queryAuthor = from item in db.BookSet
-                                                  where item.Author.ToString().ToLower() == textBusca.Text.ToLower()
-                                                  select item;
-                                LoadListBooks(queryAuthor);
-                                break;
-                        }
-                    }
+                    AllBooks();
+                }
+                else
+                {
+                    BookAtributeSearch(atribute);
                 }
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
-                MessageBox.Show("Error: Campo tipo de busca obrigatorio." );
+                MessageBox.Show("Error: Campo tipo de busca obrigatorio.");
             }
         }
 
@@ -195,7 +195,6 @@ namespace Rent_Books
             }
         }
 
-        
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             RegisterBook registerBook = new RegisterBook();

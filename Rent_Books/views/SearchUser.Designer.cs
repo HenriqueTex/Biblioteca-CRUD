@@ -34,12 +34,8 @@ namespace Rent_Books
             this.txtUserSearch = new System.Windows.Forms.TextBox();
             this.listUsers = new System.Windows.Forms.ListView();
             this.Search = new System.Windows.Forms.Button();
-            
-            //botoes delete e update
             this.deletUser = new System.Windows.Forms.Button();
             this.updateUser = new System.Windows.Forms.Button();
-            //
-
             this.SuspendLayout();
             // 
             // label1
@@ -112,8 +108,8 @@ namespace Rent_Books
             this.Controls.Add(this.txtUserSearch);
             this.Controls.Add(this.label1);
             this.Name = "SearchUser";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SearchUser";
-            
             this.ResumeLayout(false);
             this.PerformLayout();
 

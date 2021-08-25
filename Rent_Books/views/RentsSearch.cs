@@ -15,10 +15,11 @@ namespace Rent_Books
         public RentsSearch()
         {
             InitializeComponent();
-            boxState.SelectedIndex=2;
+            boxState.SelectedIndex = 2;
             boxAtributte.SelectedIndex = 1;
             AllRents();
         }
+
         public void AllRents()
         {
             using (var db = new Model1Container())
@@ -51,12 +52,38 @@ namespace Rent_Books
                 linha[4] = item.DateStart.ToString();
                 linha[5] = item.DateEnd.ToString();
 
-                ;
                 var itmx = new ListViewItem(linha);
-
-
-
                 listRents.Items.Add(itmx);
+            }
+        }
+
+        private void ReturnBook(int id)
+        {
+            using (var db = new Model1Container())
+            {
+                var query = db.RentSet.Where(s => s.Id == id).FirstOrDefault();
+
+                query.State = false;
+                query.DateEnd = DateTime.Now;
+
+                var book = db.BookSet.Where(s => s.Id == query.Book.Id).FirstOrDefault();
+                book.Quantity += 1;
+                db.SaveChanges();
+
+                MessageBox.Show("livro " + book.Name + " devolvido");
+                AllRents();
+            }
+        }
+        private Boolean VerifyRent(int id)
+        {
+            using (var db = new Model1Container())
+            {
+                var query = db.RentSet.Where(s => s.Id == id).FirstOrDefault();
+                if (query.State == false)
+                {
+                    return false;
+                }
+                return true;
             }
         }
 
@@ -69,8 +96,6 @@ namespace Rent_Books
                     var state = boxState.SelectedItem.ToString();
                     var atribute = boxAtributte.SelectedItem.ToString();
                     IQueryable<Rent> query;
-
-
                     switch (state)
                     {
                         case "Ativos":
@@ -169,27 +194,22 @@ namespace Rent_Books
                 MessageBox.Show("Um valor interio é necessario para pesquisa por codigo de emprestimo");
             }
         }
-
+       
         private void buttonReturn_Click(object sender, EventArgs e)
         {
             try
             {
-                using (var db = new Model1Container())
+                var id = Convert.ToInt32(listRents.SelectedItems[0].Text);
+                if (VerifyRent(id) == true)
                 {
-                    var id = Convert.ToInt32(listRents.SelectedItems[0].Text);
-                    var query = db.RentSet.Where(s => s.Id == id).FirstOrDefault();
-                    query.State = false;
-                    query.DateEnd = DateTime.Now;
-
-                    var book = db.BookSet.Where(s => s.Id == query.Book.Id).FirstOrDefault();
-                    book.Quantity += 1;
-                    db.SaveChanges();
-
-                    MessageBox.Show("livro "+book.Name+ " devolvido");
-                    AllRents();
+                    ReturnBook(id);
+                }
+                else
+                {
+                    MessageBox.Show("Esse emprestimo ja foi finalizado");
                 }
             }
-            catch(ArgumentOutOfRangeException)
+            catch (ArgumentOutOfRangeException)
             {
                 MessageBox.Show("Selecione um emprestimo para devolução");
             }
@@ -200,7 +220,7 @@ namespace Rent_Books
             AllRents();
         }
 
-        
+
     }
 }
 

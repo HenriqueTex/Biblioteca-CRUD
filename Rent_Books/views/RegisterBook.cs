@@ -21,7 +21,6 @@ namespace Rent_Books
             textAuthor.Enabled = true;
             textQuantity.Enabled = true;
             update = false;
-
         }
 
         public RegisterBook(int id)
@@ -58,8 +57,6 @@ namespace Rent_Books
                 }
                 else
                 {
-
-
                     using (var db = new Model1Container())
                     {
                         if (update == false)
@@ -70,16 +67,11 @@ namespace Rent_Books
                         else
                         {
                             var query = db.BookSet.Where(s => s.Id == _id).FirstOrDefault();
-
                             query.Name = textName.Text;
                             query.Author = textAuthor.Text;
                             query.Quantity = Convert.ToInt16(textQuantity.Text);
-
-
                         }
-
                         db.SaveChanges();
-
                         Close();
                     }
                 }
