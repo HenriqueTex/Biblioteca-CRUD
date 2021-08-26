@@ -30,7 +30,7 @@
     <Property Name="User_id" Type="int" Nullable="false" />
     <Property Name="Book_Id" Type="int" Nullable="false" />
     <Property Name="State" Type="bit" Nullable="false" />
-    <Property Name="DateEnd" Type="datetime" Nullable="true" />
+    <Property Name="DateEnd" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="BookSet">
     <Key>

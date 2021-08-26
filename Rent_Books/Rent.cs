@@ -19,7 +19,7 @@ namespace Rent_Books
         public int User_id { get; set; }
         public int Book_Id { get; set; }
         public bool State { get; set; }
-        public Nullable<System.DateTime> DateEnd { get; set; }
+        public System.DateTime DateEnd { get; set; }
     
         public virtual User User { get; set; }
         public virtual Book Book { get; set; }

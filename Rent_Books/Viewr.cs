@@ -15,9 +15,8 @@ namespace Rent_Books
         public Viewr()
         {
             InitializeComponent();
-            using(var db= new Model1Container())
+            using (var db = new Model1Container())
             {
-                
                 CrystalReport1.Database.Tables["Rent_Books_Book"].SetDataSource(db.BookSet.ToList());
                 CrystalReport1.Database.Tables["Rent_Books_User"].SetDataSource(db.UserSet.ToList());
                 CrystalReport1.Database.Tables["Rent_Books_Rent"].SetDataSource(db.RentSet.ToList());

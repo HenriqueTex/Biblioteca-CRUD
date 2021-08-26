@@ -56,7 +56,7 @@ namespace Rent_Books
                 var user = db.UserSet.Where(s => s.Id == idUser).FirstOrDefault();
                 var book = db.BookSet.Where(s => s.Id == idBook).FirstOrDefault();
                 book.Quantity -= 1;
-                var rent = new Rent { DateStart = DateTime.Now, User_id = idUser, Book_Id = idBook, State = true, User = user, Book = book,DateEnd=null };
+                var rent = new Rent { DateStart = DateTime.Now, User_id = idUser, Book_Id = idBook, State = true, User = user, Book = book, DateEnd= DateTime.Now };
                 db.RentSet.Add(rent);
                 db.SaveChanges();
                 MessageBox.Show("Realizado emprestimo do livro "+ book.Name+ " para o usuario " + user.Name);
