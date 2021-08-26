@@ -216,5 +216,11 @@ namespace Rent_Books
             registerBook.Show();
             AllBooks();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Viewr v = new Viewr();
+            v.Show();
+        }
     }
 }
