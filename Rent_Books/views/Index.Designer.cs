@@ -44,7 +44,7 @@
             this.buttonEdit = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.relatoriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,7 +78,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.opçõesToolStripMenuItem,
-            this.emprestimosToolStripMenuItem});
+            this.emprestimosToolStripMenuItem,
+            this.relatoriosToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(534, 24);
@@ -119,7 +120,7 @@
             // registrosToolStripMenuItem
             // 
             this.registrosToolStripMenuItem.Name = "registrosToolStripMenuItem";
-            this.registrosToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.registrosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.registrosToolStripMenuItem.Text = "Registros";
             this.registrosToolStripMenuItem.Click += new System.EventHandler(this.registrosToolStripMenuItem_Click);
             // 
@@ -196,22 +197,18 @@
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
-            // button1
+            // relatoriosToolStripMenuItem
             // 
-            this.button1.Location = new System.Drawing.Point(305, 276);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.relatoriosToolStripMenuItem.Name = "relatoriosToolStripMenuItem";
+            this.relatoriosToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.relatoriosToolStripMenuItem.Text = "Relatorios";
+            this.relatoriosToolStripMenuItem.Click += new System.EventHandler(this.relatoriosToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 322);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonEdit);
@@ -251,7 +248,7 @@
         private System.Windows.Forms.ToolStripMenuItem emprestimosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registrosToolStripMenuItem;
         private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem relatoriosToolStripMenuItem;
     }
 }
 

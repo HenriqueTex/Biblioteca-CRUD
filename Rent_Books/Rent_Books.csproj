@@ -73,10 +73,16 @@
       <DependentUpon>CrystalReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Viewr.cs">
+    <Compile Include="views\ReportFilter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Viewr.Designer.cs">
+    <Compile Include="views\ReportFilter.Designer.cs">
+      <DependentUpon>ReportFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Viewr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Viewr.Designer.cs">
       <DependentUpon>Viewr.cs</DependentUpon>
     </Compile>
     <Compile Include="views\SearchRents.cs">
@@ -142,7 +148,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CrystalReport.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Viewr.resx">
+    <EmbeddedResource Include="views\ReportFilter.resx">
+      <DependentUpon>ReportFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Viewr.resx">
       <DependentUpon>Viewr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="views\SearchRents.resx">

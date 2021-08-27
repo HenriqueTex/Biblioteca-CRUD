@@ -217,10 +217,10 @@ namespace Rent_Books
             AllBooks();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void relatoriosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Viewr v = new Viewr();
-            v.Show();
+            ReportFilter reportFilter = new ReportFilter();
+            reportFilter.Show();
         }
     }
 }

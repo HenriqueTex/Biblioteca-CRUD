@@ -36,3 +36,4 @@ C:\Users\Henrique\documents\visual studio 2015\Projects\Rent_Books\Rent_Books\bi
 C:\Users\Henrique\documents\visual studio 2015\Projects\Rent_Books\Rent_Books\bin\Debug\stdole.dll
 C:\Users\Henrique\documents\visual studio 2015\Projects\Rent_Books\Rent_Books\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Users\Henrique\documents\visual studio 2015\Projects\Rent_Books\Rent_Books\obj\Debug\Rent_Books.Viewr.resources
+C:\Users\Henrique\documents\visual studio 2015\Projects\Rent_Books\Rent_Books\obj\Debug\Rent_Books.ReportFilter.resources

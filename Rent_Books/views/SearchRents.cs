@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace Rent_Books
 {
     public partial class RentsSearch : Form
-    {
+    {   
         public RentsSearch()
         {
             InitializeComponent();
@@ -40,7 +40,7 @@ namespace Rent_Books
             listRents.Columns.Add("Estado", 80, HorizontalAlignment.Center);
             listRents.Columns.Add("Data emprestimo", 150, HorizontalAlignment.Center);
             listRents.Columns.Add("Data devolução", 150, HorizontalAlignment.Center);
-
+            
             foreach (var item in list)
             {
                 var linha = new string[6];
@@ -107,6 +107,7 @@ namespace Rent_Books
                         LoadListRents(query);
                         break;
                 }
+               
             }
         }
 
@@ -131,6 +132,7 @@ namespace Rent_Books
                         LoadListRents(query);
                         break;
                 }
+                
             }
         }
         private void SearchAtiveOrFinishedRents(string atribute)
@@ -144,16 +146,20 @@ namespace Rent_Books
                         query = db.RentSet.Where(s => s.User.Name == textSearch.Text);
                         LoadListRents(query);
                         break;
+                        
                     case "Livro":
                         query = db.RentSet.Where(s => s.Book.Name == textSearch.Text);
                         LoadListRents(query);
                         break;
+                        
                     case "Codigo emprestimo":
                         var id = Convert.ToInt32(textSearch.Text);
                         query = db.RentSet.Where(s => s.Id == id);
                         LoadListRents(query);
                         break;
+                                               
                 }
+                
             }
         }
         private void SearchStateRents(string state, string atribute)
@@ -168,37 +174,44 @@ namespace Rent_Books
                         {
                             query = db.RentSet.Where(s => s.State == true);
                             LoadListRents(query);
+                            break;                          
                         }
                         else
                         {
                             SearchAtiveRents(atribute);
+                            break;
                         }
-                        break;
+                        
 
                     case "Finalizados":
                         if (textSearch.TextLength < 1)
                         {
                             query = db.RentSet.Where(s => s.State == false);
                             LoadListRents(query);
+                            break;
                         }
                         else
                         {
                             SearchFinishedRents(atribute);
+                            break;
                         }
-                        break;
+                        
 
                     case "Todos":
                         if (textSearch.TextLength < 1)
                         {
                             query = db.RentSet;
                             LoadListRents(query);
+                            break;
                         }
                         else
                         {
                             SearchAtiveOrFinishedRents(atribute);
+                            break;
                         }
-                        break;
+                       
                 }
+                
             }
         }
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -208,6 +221,7 @@ namespace Rent_Books
                 var state = boxState.SelectedItem.ToString();
                 var atribute = boxAtributte.SelectedItem.ToString();
                 SearchStateRents(state, atribute);
+                
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -247,6 +261,8 @@ namespace Rent_Books
         {
             AllRents();
         }
+
+        
     }
 }
 
