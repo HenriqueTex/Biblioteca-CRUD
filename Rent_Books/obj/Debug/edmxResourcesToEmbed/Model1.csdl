@@ -33,7 +33,7 @@
     <NavigationProperty Name="Book" Relationship="Model1.BookRent" FromRole="Rent" ToRole="Book" />
     <Property Name="Book_Id" Type="Int32" Nullable="false" />
     <Property Name="State" Type="Boolean" Nullable="false" />
-    <Property Name="DateEnd" Type="DateTime" Nullable="false" />
+    <Property Name="DateEnd" Type="String" Nullable="false" />
   </EntityType>
   <EntityType Name="Book">
     <Key>

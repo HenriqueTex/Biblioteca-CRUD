@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/26/2021 11:16:41
+-- Date Created: 08/30/2021 09:45:19
 -- Generated from EDMX file: C:\Users\Henrique\documents\visual studio 2015\Projects\Rent_Books\Rent_Books\Model1.edmx
 -- --------------------------------------------------
 
@@ -57,7 +57,7 @@ CREATE TABLE [dbo].[RentSet] (
     [User_id] int  NOT NULL,
     [Book_Id] int  NOT NULL,
     [State] bit  NOT NULL,
-    [DateEnd] datetime  NOT NULL
+    [DateEnd] nvarchar(max)  NOT NULL
 );
 GO
 

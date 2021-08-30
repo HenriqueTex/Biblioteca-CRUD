@@ -64,7 +64,7 @@ namespace Rent_Books
                 var query = db.RentSet.Where(s => s.Id == id).FirstOrDefault();
 
                 query.State = false;
-                query.DateEnd = DateTime.Now;
+                query.DateEnd = DateTime.Now.ToString();
                 var book = db.BookSet.Where(s => s.Id == query.Book.Id).FirstOrDefault();
                 book.Quantity += 1;
                 db.SaveChanges();

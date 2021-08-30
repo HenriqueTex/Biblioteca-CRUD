@@ -20,9 +20,11 @@ namespace Rent_Books
                 switch (type)
                 {
                     case "Todos Registros":
+                       
                         CrystalReport1.Database.Tables["Rent_Books_Book"].SetDataSource(db.BookSet.ToList());
                         CrystalReport1.Database.Tables["Rent_Books_User"].SetDataSource(db.UserSet.ToList());
                         CrystalReport1.Database.Tables["Rent_Books_Rent"].SetDataSource(db.RentSet.ToList());
+                        
                         break;
                     case "Usuario":
                         if ( atribute.Length <1)
